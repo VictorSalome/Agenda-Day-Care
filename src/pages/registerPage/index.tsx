@@ -1,14 +1,13 @@
-// Importa o React e o hook useState do React
 import React, { useState } from 'react';
 
 // Componente de registro
 const Register = () => {
     // Estados para armazenar os dados do formulário e configurações
-    const [fullName, setFullName] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
-    const [showPasswords, setShowPasswords] = useState(false);
+    const [fullName, setFullName] = useState('');  // Estado para o nome completo
+    const [email, setEmail] = useState('');  // Estado para o e-mail
+    const [password, setPassword] = useState('');  // Estado para a senha
+    const [confirmPassword, setConfirmPassword] = useState('');  // Estado para a confirmação de senha
+    const [showPasswords, setShowPasswords] = useState(false);  // Estado para mostrar/ocultar as senhas
 
     // Função para lidar com o envio do formulário
     const handleRegister = (e: React.FormEvent<HTMLFormElement>) => {
