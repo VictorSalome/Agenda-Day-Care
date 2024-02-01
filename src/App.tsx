@@ -1,11 +1,15 @@
 
 import './index.css'
+import Login from './pages/loginPage'
+import Register from './pages/register'
 
 function App() {
   return (
-    <h1 className="text-12xl font-bold underline">
-      Hello world!
-    </h1>
+
+    <>
+      {/* <Login /> */}
+      <Register />
+    </>
   )
 }
 
