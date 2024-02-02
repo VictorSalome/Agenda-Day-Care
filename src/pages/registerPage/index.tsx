@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import dogRegister from '../../assets/dogRegister.png'
 
 // Componente de registro
 const Register = () => {
@@ -20,10 +21,16 @@ const Register = () => {
         console.log('Confirmação de senha:', confirmPassword);
     };
 
+    const backgroundStyle: React.CSSProperties = {
+        backgroundImage: `url(${dogRegister})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+    };
+
     // Renderiza o formulário e outros elementos na página
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-100">
-            <div className="max-w-md w-full p-6 bg-white rounded-lg shadow-md">
+        <div className="min-h-screen flex items-center justify-center bg-gray-100 " style={backgroundStyle}>
+            <div className="max-w-lg w-full p-6 bg-white rounded-lg shadow-md">
                 <h1 className="text-2xl font-semibold mb-4">Crie sua conta</h1>
                 <form onSubmit={handleRegister}>
                     {/* Campo para inserir o nome completo */}
@@ -102,7 +109,9 @@ const Register = () => {
                         Registrar
                     </button>
                 </form>
+
             </div>
+
         </div>
     );
 };

@@ -1,27 +1,32 @@
 import React, { useState } from 'react';
+import dogLogin from '../../assets/dogLogin.png'
 
 const Login = () => {
-    // Estados para armazenar os dados do formulário e configurações
-    const [email, setEmail] = useState('');  // Estado para o e-mail
-    const [password, setPassword] = useState('');  // Estado para a senha
-    const [showPassword, setShowPassword] = useState(false);  // Estado para mostrar/ocultar a senha
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
 
-    // Função para lidar com o envio do formulário
     const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();  // Evita o comportamento padrão de recarregar a página no envio
-
-        // Aqui você pode implementar a lógica de autenticação
+        e.preventDefault();
+        // Lógica de autenticação aqui
         console.log('Email:', email);
         console.log('Password:', password);
     };
 
-    // Renderiza o formulário e outros elementos na página
+    const backgroundStyle: React.CSSProperties = {
+        position: 'relative',
+        backgroundImage: `url(${dogLogin})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+    };
+
+
+
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-100">
+        <div className="min-h-screen flex items-center justify-center" style={backgroundStyle} >
             <div className="max-w-md w-full p-6 bg-white rounded-lg shadow-md">
                 <h1 className="text-2xl font-semibold mb-4">Faça o login</h1>
                 <form onSubmit={handleLogin}>
-                    {/* Campo para inserir o e-mail */}
                     <div className="mb-4">
                         <label htmlFor="email" className="block text-sm font-medium text-gray-700">
                             Email
@@ -33,10 +38,9 @@ const Login = () => {
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             className="mt-1 p-2 w-full border rounded-md"
-                            required  // Campo obrigatório
+                            required
                         />
                     </div>
-                    {/* Campo para inserir a senha com opção de mostrar/ocultar */}
                     <div className="mb-4">
                         <label htmlFor="password" className="block text-sm font-medium text-gray-700">
                             Senha
@@ -48,9 +52,8 @@ const Login = () => {
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             className="mt-1 p-2 w-full border rounded-md"
-                            required  // Campo obrigatório
+                            required
                         />
-                        {/* Checkbox para mostrar/ocultar a senha */}
                         <input
                             type="checkbox"
                             id="showPassword"
@@ -62,7 +65,6 @@ const Login = () => {
                             Mostrar senha
                         </label>
                     </div>
-                    {/* Botão para enviar o formulário */}
                     <button
                         type="submit"
                         className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600"
