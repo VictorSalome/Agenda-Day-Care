@@ -1,36 +1,54 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import dogHome from '../../../assets/dogHome.png';
 import HomeModal from './homeModal';
 
 const HomeMain = () => {
     const [isModalOpen, setIsModalOpen] = useState(true);
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
     const backgroundStyle: React.CSSProperties = {
         position: 'relative',
         backgroundImage: `url(${dogHome})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        height: '100vh',  // Adiciona altura total da viewport
+    };
+
+    const modalContainerStyle: React.CSSProperties = {
+        maxWidth: '600px', // Tamanho padrão para a versão web
+        margin: '2rem auto',
+        padding: '1rem',
     };
 
     const titleStyle: React.CSSProperties = {
-        fontSize: '1rem',  // Ajusta o tamanho da fonte para dispositivos menores
+        fontSize: isMobile ? '1rem' : '1.5rem', // Ajusta o tamanho do título apenas para dispositivos móveis
         color: 'black',
-        maxWidth: '300px',  // Limita a largura para melhor legibilidade
-        margin: 'auto',  // Centraliza o texto horizontalmente
     };
 
     const handleCloseModal = () => {
         setIsModalOpen(false);
     };
 
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth <= 768);
+        };
+
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
+
     return (
-        <div className="flex items-center justify-center" style={backgroundStyle}>
+        <div className="flex h-screen p-10" style={backgroundStyle}>
             {isModalOpen && (
                 <HomeModal open={isModalOpen} onClose={handleCloseModal}>
-                    <h1 style={titleStyle}>
-                        Olá, Rebeca! Como está? Ao lado, você encontrará o painel de funcionalidades. Sinta-se à vontade para explorar de acordo com as suas necessidades.
-                    </h1>
+                    <div style={modalContainerStyle}>
+                        <h1 style={titleStyle}>
+                            Olá, Rebeca! Como está? Ao lado, você encontrará o painel de funcionalidades. Sinta-se à vontade para explorar de acordo com as suas necessidades.
+                        </h1>
+                    </div>
                 </HomeModal>
             )}
         </div>

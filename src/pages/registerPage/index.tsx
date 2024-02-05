@@ -25,8 +25,8 @@ const Register = () => {
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-100" style={backgroundStyle}>
-            <div className="max-w-md w-full p-6 bg-white rounded-lg shadow-md">
-                <h1 className="text-2xl font-semibold mb-4">Criar conta</h1>
+            <div className="w-full sm:w-96 p-6 bg-white rounded-lg shadow-md mx-4"> {/* Adicionado mx-4 para margens laterais */}
+                <h1 className="text-2xl font-semibold mb-4 text-center">Criar conta</h1>
                 <form onSubmit={handleRegister}>
                     <div className="mb-4">
                         <label htmlFor="fullName" className="block text-sm font-medium text-gray-700">

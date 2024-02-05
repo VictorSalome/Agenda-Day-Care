@@ -41,18 +41,46 @@ const AddDogForm: React.FC = () => {
         },
     });
 
-    const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const file = event.target.files?.[0];
+    // Função para tratar o campo de gênero
+    const handleGenderChange = (value: string) => {
         setFormState((prevFormState) => ({
             ...prevFormState,
             dog: {
                 ...prevFormState.dog,
-                profileImage: file || null,
+                gender: value,
             },
         }));
     };
 
+    // Função para tratar o campo de tipo de alimentação
+    const handleFoodTypeChange = (value: string) => {
+        setFormState((prevFormState) => ({
+            ...prevFormState,
+            dog: {
+                ...prevFormState.dog,
+                feeding: {
+                    ...prevFormState.dog.feeding,
+                    foodType: value,
+                },
+            },
+        }));
+    };
 
+    // Função para tratar o campo de frequência de alimentação
+    const handleFeedingFrequencyChange = (value: string) => {
+        setFormState((prevFormState) => ({
+            ...prevFormState,
+            dog: {
+                ...prevFormState.dog,
+                feeding: {
+                    ...prevFormState.dog.feeding,
+                    feedingFrequency: value,
+                },
+            },
+        }));
+    };
+
+    // Função principal handleInputChange
     const handleInputChange = (
         event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
     ) => {
@@ -76,15 +104,21 @@ const AddDogForm: React.FC = () => {
             }
 
             if (type === 'select-one') {
-                const updatedFeeding = { ...prevFormState.dog.feeding, [name]: value };
+                switch (name) {
+                    case 'gender':
+                        handleGenderChange(value);
+                        break;
+                    case 'foodType':
+                        handleFoodTypeChange(value);
+                        break;
+                    case 'feedingFrequency':
+                        handleFeedingFrequencyChange(value);
+                        break;
+                    default:
+                        break;
+                }
 
-                return {
-                    ...prevFormState,
-                    dog: {
-                        ...prevFormState.dog,
-                        feeding: updatedFeeding,
-                    },
-                };
+                return prevFormState; // Retorna o estado sem alterações no objeto dog
             }
 
             // Tratamento específico para o campo 'snackName'
@@ -101,7 +135,7 @@ const AddDogForm: React.FC = () => {
                 };
             }
 
-            // Se não for checkbox ou select-one, trata como input de texto padrão
+            // Se não for checkbox, select-one, snackName ou gender, trata como input de texto padrão
             return {
                 ...prevFormState,
                 dog: {
@@ -111,7 +145,6 @@ const AddDogForm: React.FC = () => {
             };
         });
     };
-
 
 
 
@@ -139,10 +172,10 @@ const AddDogForm: React.FC = () => {
     };
 
     return (
-        <div className="flex justify-center items-center h-screen bg-gradient-to-r from-indigo-600 to-blue-600">
+        <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-indigo-600 to-blue-600">
             <form
                 onSubmit={handleSubmit}
-                className="bg-white p-8 rounded shadow-md w-full md:w-2/3 lg:w-1/2 xl:w-1/3"
+                className="bg-white p-4 sm:p-6 md:p-8 rounded shadow-md w-full sm:w-5/6 md:w-3/4 lg:w-2/3 xl:w-1/2 mx-"
                 encType="multipart/form-data"
             >
                 <h1 className="text-3xl font-bold text-indigo-600 mb-4 text-center">Cadastro de Pets</h1>
@@ -156,7 +189,6 @@ const AddDogForm: React.FC = () => {
                             type="file"
                             name="profileImage"
                             id="profileImage"
-                            onChange={(e) => handleImageChange(e)}
                             className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-gray-100 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                         />
                     </div>
@@ -333,7 +365,7 @@ const AddDogForm: React.FC = () => {
                     type="submit"
                     className="w-full px-4 py-2 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 mt-8"
                 >
-                    Adicionar Pet
+                    Cadastrar Pet
                 </button>
             </form>
         </div>

@@ -23,8 +23,8 @@ const Login = () => {
 
     return (
         <div className="min-h-screen flex items-center justify-center" style={backgroundStyle}>
-            <div className="max-w-md w-full p-6 bg-white rounded-lg shadow-md">
-                <h1 className="text-2xl font-semibold mb-4">Faça o login</h1>
+            <div className="w-full sm:w-96 p-6 bg-white rounded-lg shadow-md mx-4"> {/* Adicionado mx-4 para margens laterais */}
+                <h1 className="text-2xl font-semibold mb-4 text-center">Faça o login</h1>
                 <form onSubmit={handleLogin}>
                     <div className="mb-4">
                         <label htmlFor="email" className="block text-sm font-medium text-gray-700">
