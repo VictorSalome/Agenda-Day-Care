@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import dogLogin from '../../assets/dogLogin.png'
+import dogLogin from '../../assets/dogLogin.png';
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -18,12 +18,11 @@ const Login = () => {
         backgroundImage: `url(${dogLogin})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
+        minHeight: '100vh', // Garante que a imagem de fundo cobre toda a tela
     };
 
-
-
     return (
-        <div className="min-h-screen flex items-center justify-center" style={backgroundStyle} >
+        <div className="min-h-screen flex items-center justify-center" style={backgroundStyle}>
             <div className="max-w-md w-full p-6 bg-white rounded-lg shadow-md">
                 <h1 className="text-2xl font-semibold mb-4">Faça o login</h1>
                 <form onSubmit={handleLogin}>
@@ -54,16 +53,18 @@ const Login = () => {
                             className="mt-1 p-2 w-full border rounded-md"
                             required
                         />
-                        <input
-                            type="checkbox"
-                            id="showPassword"
-                            checked={showPassword}
-                            onChange={() => setShowPassword(!showPassword)}
-                            className="mt-2"
-                        />
-                        <label htmlFor="showPassword" className="text-sm text-gray-700 ml-2">
-                            Mostrar senha
-                        </label>
+                        <div className="flex items-center mt-2">
+                            <input
+                                type="checkbox"
+                                id="showPassword"
+                                checked={showPassword}
+                                onChange={() => setShowPassword(!showPassword)}
+                                className="mr-2"
+                            />
+                            <label htmlFor="showPassword" className="text-sm text-gray-700">
+                                Mostrar senha
+                            </label>
+                        </div>
                     </div>
                     <button
                         type="submit"
