@@ -1,0 +1,108 @@
+{
+    "pets": [
+        {
+            "id": 1,
+            "name": "Joe",
+            "photo": "https://images.pexels.com/photos/998251/pexels-photo-998251.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+            "breed": "Labrador",
+            "color": "Preto",
+            "gender": "Macho",
+            "birthDate": "01/01/2019",
+            "ownerName": "Alice",
+            "feedType": "Ração",
+            "feedFrequency": "2 vezes ao dia",
+            "serveSnack": true
+        },
+        {
+            "id": 2,
+            "name": "Frederico",
+            "photo": "https://images.pexels.com/photos/2409503/pexels-photo-2409503.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+            "breed": "Golden Retriever",
+            "color": "Marrom",
+            "gender": "Macho",
+            "birthDate": "15/06/2020",
+            "ownerName": "Bob",
+            "feedType": "Ração",
+            "feedFrequency": "1 vez ao dia",
+            "serveSnack": false
+        },
+        {
+            "id": 3,
+            "name": "Sophia",
+            "photo": "https://images.pexels.com/photos/7516435/pexels-photo-7516435.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+            "breed": "Poodle",
+            "color": "Branco",
+            "gender": "Fêmea",
+            "birthDate": "10/12/2018",
+            "ownerName": "Carlos",
+            "feedType": "Ração",
+            "feedFrequency": "3 vezes ao dia",
+            "serveSnack": true
+        },
+        {
+            "id": 4,
+            "name": "Bull",
+            "photo": "https://images.pexels.com/photos/15626161/pexels-photo-15626161/free-photo-of-animal-bicho-cachorro-cao.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+            "breed": "Bulldog françes",
+            "color": "Marrom e branco",
+            "gender": "Macho",
+            "birthDate": "20/03/2017",
+            "ownerName": "Diana",
+            "feedType": "Ração",
+            "feedFrequency": "2 vezes ao dia",
+            "serveSnack": true
+        },
+        {
+            "id": 5,
+            "name": "Cibeli",
+            "photo": "https://images.pexels.com/photos/3715587/pexels-photo-3715587.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+            "breed": "Husky siberiano",
+            "color": "Dourado",
+            "gender": "Fêmea",
+            "birthDate": "05/08/2021",
+            "ownerName": "Eva",
+            "feedType": "Ração",
+            "feedFrequency": "1 vez ao dia",
+            "serveSnack": false
+        },
+        {
+            "id": 6,
+            "name": "Lili",
+            "photo": "https://images.pexels.com/photos/3361739/pexels-photo-3361739.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+            "breed": "shitzu",
+            "color": "branco",
+            "gender": "Fêmea",
+            "birthDate": "05/08/2016",
+            "ownerName": "Maria",
+            "feedType": "Ração",
+            "feedFrequency": "1 vez ao dia",
+            "serveSnack": false
+        },
+        {
+            "id": 7,
+            "name": "Rain",
+            "photo": "https://images.pexels.com/photos/3041659/pexels-photo-3041659.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+            "breed": "Border Collie",
+            "color": "Preto e Branco",
+            "gender": "Macho",
+            "birthDate": "02/08/2018",
+            "ownerName": "Eva",
+            "feedType": "Ração",
+            "feedFrequency": "2 vez ao dia",
+            "serveSnack": false
+        },
+        {
+            "id": 8,
+            "name": "Poow",
+            "photo": "https://images.pexels.com/photos/10860806/pexels-photo-10860806.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+            "breed": "Basset",
+            "color": "Preto e Branco",
+            "gender": "Macho",
+            "birthDate": "02/03/2016",
+            "ownerName": "Adelaide",
+            "feedType": "Ração",
+            "feedFrequency": "2 vez ao dia",
+            "serveSnack": false
+        }
+    ]
+}

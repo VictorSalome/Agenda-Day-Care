@@ -1,23 +1,35 @@
-import { Route, Routes } from "react-router-dom";
-import Login from './pages/loginPage'
-import Register from './pages/registerPage'
+import React from 'react';
+import { Route, Routes, Outlet } from "react-router-dom";
+import Sidebar from './components/Sidebar';
+import MainContent from './pages/homePage/mainContent';
+import Login from './pages/loginPage';
+import Register from './pages/registerPage';
 import HomePage from "./pages/homePage";
-import RegisterPet from "./pages/homePage/registerPet";
+import RegisterPet from "./pages/homePage/CadastroPet";
 import RegisteredPet from "./pages/homePage/registeredPet";
 import SchedulePet from "./pages/homePage/schedulePet";
 
-
-
-
-export function AppRoutes() {
+const AppRoutes: React.FC = () => {
     return (
         <Routes>
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/" element={<HomePage />} />
-            <Route path="/cadastro-pet" element={<RegisterPet />} />
-            <Route path="/registro-pet" element={<RegisteredPet />} />
-            <Route path="/agenda-pet" element={<SchedulePet />} />
+            <Route path="/" element={<LayoutWithSidebar />}>
+                <Route index element={<MainContent><HomePage /></MainContent>} />
+                <Route path="cadastro-pet" element={<MainContent><RegisterPet /></MainContent>} />
+                <Route path="registro-pet" element={<MainContent><RegisteredPet /></MainContent>} />
+                <Route path="agenda-pet" element={<MainContent><SchedulePet /></MainContent>} />
+            </Route>
         </Routes>
     );
 }
+
+const LayoutWithSidebar: React.FC = () => {
+    return (
+        <Sidebar>
+            <Outlet />
+        </Sidebar>
+    );
+}
+
+export default AppRoutes;

@@ -1,16 +1,17 @@
-import ScheduleSideBar from "./homeSidebar";
+import HomeMain from "./homeMain";
 
 
 
-const SchedulePage = () => {
+
+const HomePage = () => {
     return (
 
         <>
-            <ScheduleSideBar />
+            <HomeMain />
         </>
 
 
     );
 }
 
-export default SchedulePage;
+export default HomePage;
