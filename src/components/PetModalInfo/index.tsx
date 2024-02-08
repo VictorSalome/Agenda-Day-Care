@@ -7,13 +7,13 @@ interface User {
     name: string;
     photo: string;
     breed: string;
-    color: string;
-    gender: string;
-    birthDate: string;
-    ownerName: string;
-    feedType: string;
-    feedFrequency: string;
-    serveSnack: boolean;
+    color?: string;
+    gender?: string;
+    birthDate?: string;
+    ownerName?: string;
+    feedType?: string;
+    feedFrequency?: string;
+    serveSnack?: boolean;
 }
 
 interface ModalProps {
@@ -22,7 +22,7 @@ interface ModalProps {
     user: User | null;
 }
 
-const PetModal: React.FC<ModalProps> = ({ isOpen, closeModal, user }) => {
+const PetModalInfo: React.FC<ModalProps> = ({ isOpen, closeModal, user }) => {
     if (!user) return null;
 
     return (
@@ -57,12 +57,12 @@ const PetModal: React.FC<ModalProps> = ({ isOpen, closeModal, user }) => {
                     <Grid item xs={8}>
                         <Stack spacing={2}>
                             <TextField variant="standard" label="Raça" value={user.breed} fullWidth />
-                            <TextField variant="standard" label="Cor" value={user.color} fullWidth />
-                            <TextField variant="standard" label="Sexo" value={user.gender} fullWidth />
-                            <TextField variant="standard" label="Data de Nascimento" value={user.birthDate} fullWidth />
-                            <TextField variant="standard" label="Nome do dono" value={user.ownerName} fullWidth />
-                            <TextField variant="standard" label="Tipo de alimentação" value={user.feedType} fullWidth />
-                            <TextField variant="standard" label="Frequência de Alimentação" value={user.feedFrequency} fullWidth />
+                            <TextField variant="standard" label="Cor" value={user.color || ''} fullWidth />
+                            <TextField variant="standard" label="Sexo" value={user.gender || ''} fullWidth />
+                            <TextField variant="standard" label="Data de Nascimento" value={user.birthDate || ''} fullWidth />
+                            <TextField variant="standard" label="Nome do Tutor" value={user.ownerName || ''} fullWidth />
+                            <TextField variant="standard" label="Tipo de Alimentação" value={user.feedType || ''} fullWidth />
+                            <TextField variant="standard" label="Frequência de Alimentação" value={user.feedFrequency || ''} fullWidth />
                             <TextField variant="standard" label="Servir Petisco" value={user.serveSnack ? "Sim" : "Não"} fullWidth />
                         </Stack>
                     </Grid>
@@ -73,4 +73,4 @@ const PetModal: React.FC<ModalProps> = ({ isOpen, closeModal, user }) => {
     );
 };
 
-export default PetModal;
+export default PetModalInfo;

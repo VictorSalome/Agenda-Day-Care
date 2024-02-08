@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { TextField, Typography, Grid, Box } from "@mui/material";
 import axios from "axios";
 import PetCard from "../../../components/PetCard";
-import PetModal from "../../../components/PetModal";
 
 interface User {
     id: number;
@@ -21,8 +20,6 @@ interface User {
 const RegisteredPetPage: React.FC = () => {
     const [users, setUsers] = useState<User[]>([]);
     const [searchTerm, setSearchTerm] = useState("");
-    const [selectedUser, setSelectedUser] = useState<User | null>(null);
-    const [modalIsOpen, setModalIsOpen] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -40,15 +37,6 @@ const RegisteredPetPage: React.FC = () => {
         user.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
-    const openModal = (user: User) => {
-        setSelectedUser(user);
-        setModalIsOpen(true);
-    };
-
-    const closeModal = () => {
-        setSelectedUser(null);
-        setModalIsOpen(false);
-    };
 
     return (
         <Box p={4} bgcolor="background.default" minHeight="100vh">
@@ -65,11 +53,11 @@ const RegisteredPetPage: React.FC = () => {
             <Grid container spacing={4} mt={4}>
                 {filteredUsers.map((user) => (
                     <Grid item key={user.id} xs={12} sm={6} md={4} lg={3}>
-                        <PetCard user={user} openModal={openModal} />
+                        <PetCard user={user} />
                     </Grid>
                 ))}
             </Grid>
-            <PetModal isOpen={modalIsOpen} closeModal={closeModal} user={selectedUser} />
+
         </Box>
     );
 };

@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600;700&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -14,4 +13,55 @@ body {
     font-family: 'Josefin Sans', sans-serif;
 }
 
+:root {
+    @apply bg-gray-50;
+}
 
+input {
+    @apply px-2;
+}
+
+.fc-header-toolbar {
+    display: inline-block;
+    padding: 4px 4px;
+
+    @apply space-x-8;
+}
+
+.fc-day {
+    @apply m-8;
+}
+
+.fc-scrollgrid-sync-table {
+    @apply w-full;
+}
+
+.fc-view {
+    @apply w-full h-full lg:h-3/4 xl:h-2/3 bg-white;
+}
+
+.fc-h-event {
+    @apply bg-gray-500 border border-gray-600;
+
+}
+
+.fc .fc-daygrid-day.fc-day-today {
+    @apply bg-gray-200;
+}
+
+.fc .fc-button {
+    @apply bg-gray-800 hover:bg-gray-900;
+}
+
+.fc .fc-button-primary:not(:disabled).fc-button-active {
+    @apply bg-gray-600;
+}
+
+.fc .fc-button-primary:disabled {
+    @apply bg-gray-600;
+}
+
+.fc-v-event {
+    @apply bg-gray-500 border border-gray-600;
+
+}
