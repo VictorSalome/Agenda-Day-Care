@@ -1,14 +1,11 @@
 import { Agenda } from "../../../components/Agenda";
 
-
 const schedulePet = () => {
-
-    return (
-        <>
-            <Agenda />
-        </>
-
-    );
+  return (
+    <>
+      <Agenda />
+    </>
+  );
 };
 
 export default schedulePet;

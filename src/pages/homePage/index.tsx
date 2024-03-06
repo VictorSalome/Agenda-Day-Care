@@ -1,17 +1,11 @@
 import HomeMain from "./homeMain";
 
-
-
-
 const HomePage = () => {
-    return (
-
-        <>
-            <HomeMain />
-        </>
-
-
-    );
-}
+  return (
+    <>
+      <HomeMain />
+    </>
+  );
+};
 
 export default HomePage;
