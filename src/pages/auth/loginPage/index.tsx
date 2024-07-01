@@ -1,16 +1,56 @@
 import React, { useState } from "react";
-import dogLogin from "../../assets/dogLogin.png";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import dogLogin from "../../../assets/dogLogin.png";
+
+interface IFormInput {
+  email: string;
+  password: string;
+}
+
+const schema = yup.object().shape({
+  email: yup.string().email("E-mail inválido").required("E-mail é obrigatório"),
+  password: yup.string().required("Senha é obrigatória"),
+});
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IFormInput>({
+    resolver: yupResolver(schema),
+  });
 
-  const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    // Lógica de autenticação aqui
-    console.log("Email:", email);
-    console.log("Password:", password);
+  const [showPassword, setShowPassword] = useState(false);
+  const [loginError, setLoginError] = useState("");
+
+  const onSubmit: SubmitHandler<IFormInput> = async (data) => {
+    try {
+      const response = await fetch("http://localhost:8000/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        setLoginError(result.msg || "Erro ao realizar login");
+        return;
+      }
+
+      // Sucesso: Armazene o token JWT
+      console.log("Login bem-sucedido", result);
+      localStorage.setItem("token", result.token);
+      // Redirecione o usuário ou atualize o estado de autenticação conforme necessário
+    } catch (error) {
+      console.error("Erro:", error);
+      setLoginError("Erro no servidor, tente novamente mais tarde");
+    }
   };
 
   const backgroundStyle: React.CSSProperties = {
@@ -18,7 +58,7 @@ const Login = () => {
     backgroundImage: `url(${dogLogin})`,
     backgroundSize: "cover",
     backgroundPosition: "center",
-    minHeight: "100vh", // Garante que a imagem de fundo cobre toda a tela
+    minHeight: "100vh",
   };
 
   return (
@@ -27,12 +67,10 @@ const Login = () => {
       style={backgroundStyle}
     >
       <div className="w-full sm:w-96 p-6 bg-white rounded-lg shadow-md mx-4">
-        {" "}
-        {/* Adicionado mx-4 para margens laterais */}
         <h1 className="text-2xl font-semibold mb-4 text-center">
           Faça o login
         </h1>
-        <form onSubmit={handleLogin}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <div className="mb-4">
             <label
               htmlFor="email"
@@ -43,12 +81,12 @@ const Login = () => {
             <input
               type="email"
               id="email"
-              name="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              {...register("email")}
               className="mt-1 p-2 w-full border rounded-md"
-              required
             />
+            {errors.email && (
+              <p className="text-red-500 text-sm">{errors.email.message}</p>
+            )}
           </div>
           <div className="mb-4">
             <label
@@ -60,12 +98,12 @@ const Login = () => {
             <input
               type={showPassword ? "text" : "password"}
               id="password"
-              name="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              {...register("password")}
               className="mt-1 p-2 w-full border rounded-md"
-              required
             />
+            {errors.password && (
+              <p className="text-red-500 text-sm">{errors.password.message}</p>
+            )}
             <div className="flex items-center mt-2">
               <input
                 type="checkbox"
@@ -79,6 +117,7 @@ const Login = () => {
               </label>
             </div>
           </div>
+          {loginError && <p className="text-red-500 text-sm">{loginError}</p>}
           <button
             type="submit"
             className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600"

@@ -248,7 +248,11 @@ export const Agenda: React.FC<AgendaProps> = ({ userId }) => {
         </Dialog>
       </Transition.Root>
       <Transition.Root show={showModal} as={Fragment}>
-        <Dialog as="div" className="relative z-10" onClose={setShowModal}>
+        <Dialog
+          as="div"
+          className="fixed inset-0 z-10 overflow-y-auto"
+          onClose={setShowModal}
+        >
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
