@@ -1,18 +1,17 @@
-
-import './index.css'
+import "./index.css";
 import { BrowserRouter } from "react-router-dom";
-import AppRoutes from './routes';
-
-
+import AppRoutes from "./routes";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 function App() {
+  const queryClient = new QueryClient();
   return (
-
     <BrowserRouter>
-      <AppRoutes />
+      <QueryClientProvider client={queryClient}>
+        <AppRoutes />
+      </QueryClientProvider>
     </BrowserRouter>
-  )
+  );
 }
 
-
-export default App
+export default App;

@@ -31,15 +31,30 @@ export interface Event {
   id: number;
 }
 
-export interface User {
-  id: number;
+export interface Feeding {
+  foodType: string;
+  feedingFrequency: string;
+  serveSnack: boolean;
+  snackName: string;
+}
+
+export interface Dog {
+  _id: string;
   name: string;
-  photo: string;
   breed: string;
+  color: string;
+  gender: string;
+  birthDate: string;
+  age: string;
+  selectedImageName: string;
+  ownerName: string;
+  profileImage: string;
+  feeding: Feeding;
+  __v: number;
 }
 
 export interface PetCardProps {
-  user: User;
+  dog: Dog;
 }
 
 export interface ModalPropsPet {
@@ -65,7 +80,8 @@ export interface TabPanelProps {
   value: number;
 }
 
-export interface Dog {
+export interface IDogs {
+  _id: string;
   name: string;
   breed: string;
   color: string;
@@ -84,5 +100,5 @@ export interface Dog {
 }
 
 export interface FormState {
-  dog: Dog;
+  dog: IDogs;
 }

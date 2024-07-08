@@ -1,49 +1,51 @@
-import React, { useState, useEffect } from "react";
-import { TextField, Typography, Grid, Box, Pagination } from "@mui/material";
-import axios from "axios";
-import PetCard from "../../../components/PetCard";
-import { User } from "../../../interfaces";
+import React, { useState } from "react";
+import { useGetDogs } from "../../../hooks/servicesApi/serviceHook";
+import {
+  Avatar,
+  Box,
+  Grid,
+  IconButton,
+  Pagination,
+  TextField,
+  Typography,
+} from "@mui/material";
+
+import { IoMdInformationCircleOutline } from "react-icons/io";
 
 const RegisteredPetPage: React.FC = () => {
-  const [users, setUsers] = useState<User[]>([]);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 8
+  const { data, error, isLoading } = useGetDogs();
+  const [page, setPage] = useState(1); // Estado para controlar a página atual
+  const [searchTerm, setSearchTerm] = useState(""); // Estado para armazenar o termo de busca
+  const dogsPerPage = 8; // Número de itens por página
+  console.log("data", data);
+  const { dogs } = data || {};
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get<User[]>("http://localhost:3001/pets");
-        setUsers(response.data);
-      } catch (error) {
-        console.error("Erro ao obter dados dos pets:", error);
-      }
-    };
-    fetchData();
-  }, []);
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
-  const filteredUsers = users.filter((user) =>
-    user.name.toLowerCase().includes(searchTerm.toLowerCase())
+  if (error) {
+    return <div>Error loading data</div>;
+  }
+
+  // Lógica para calcular o índice inicial e final dos itens a serem exibidos na página atual
+  const startIndex = (page - 1) * dogsPerPage;
+  const endIndex = startIndex + dogsPerPage;
+
+  // Filtra os cães com base no termo de busca
+  const filteredDogs = dogs?.filter((dog) =>
+    dog.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
- 
-  const pageCount = Math.ceil(filteredUsers.length / itemsPerPage);
+  const dogsToShow = filteredDogs?.slice(startIndex, endIndex); // Filtra os cães a serem exibidos na página atual
 
-  const handleChangePage = (
-    _event: React.ChangeEvent<unknown>,
-    value: number
-  ) => {
-    setCurrentPage(value);
+  const handlePageChange = (newPage: number) => {
+    setPage(newPage);
   };
 
-  const renderUsers = () => {
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-    return filteredUsers.slice(startIndex, endIndex).map((user) => (
-      <Grid item key={user.id} xs={12} sm={6} md={4} lg={3}>
-        <PetCard user={user} />
-      </Grid>
-    ));
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(event.target.value);
+    setPage(1); // Reinicia a página para a primeira ao iniciar uma nova busca
   };
 
   return (
@@ -57,6 +59,7 @@ const RegisteredPetPage: React.FC = () => {
       >
         Pets Cadastrados
       </Typography>
+
       <TextField
         type="text"
         placeholder="Pesquisar pets..."
@@ -64,17 +67,66 @@ const RegisteredPetPage: React.FC = () => {
         fullWidth
         className="mt-4"
         value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
+        onChange={handleSearchChange}
       />
       <Grid container spacing={4} mt={4}>
-        {renderUsers()}
+        {dogsToShow?.map((dog) => (
+          <Grid item xs={12} sm={6} md={3} key={dog._id}>
+            <Box
+              component="div"
+              bgcolor="#00000010"
+              p={2}
+              borderRadius={4}
+              textAlign="center"
+              sx={{
+                cursor: "pointer",
+                transition: "transform 0.3s ease",
+                "&:hover": {
+                  transform: "scale(1.05)",
+                },
+                boxShadow: 2,
+                marginTop: 2,
+                position: "relative", // Ensure IconButton stays within Box
+              }}
+            >
+              <IconButton
+                sx={{ position: "absolute", top: 10, right: 10, color: "#000" }}
+                onClick={() => {
+                  // Replace with actual navigation to pet detail page
+                  window.location.href = `/pets/${dog._id}`;
+                }}
+              >
+                <IoMdInformationCircleOutline />
+              </IconButton>
+              <Avatar
+                alt={dog.name}
+                src={dog.profileImage}
+                sx={{
+                  width: 150,
+                  height: 150,
+                  margin: "0 auto 20px",
+                  borderRadius: "50%",
+                }}
+              />
+              <Typography variant="h6" component="h3">
+                {dog.name}
+              </Typography>
+              <Typography variant="body2" color="textSecondary">
+                {dog.breed}
+              </Typography>
+            </Box>
+          </Grid>
+        ))}
       </Grid>
-      <Box display="flex" justifyContent="center" mt={4}>
+      {/* Controles de páginação */}
+      <Box mt={4} display="flex" justifyContent="center">
         <Pagination
-          count={pageCount}
-          page={currentPage}
-          onChange={handleChangePage}
+          count={Math.ceil((filteredDogs?.length || 0) / dogsPerPage)} // Calcula o número total de páginas
+          page={page}
+          onChange={(_event, value) => handlePageChange(value)}
           color="primary"
+          showFirstButton
+          showLastButton
         />
       </Box>
     </Box>
