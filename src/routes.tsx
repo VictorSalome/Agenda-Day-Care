@@ -8,6 +8,7 @@ import HomePage from "./pages/homePage";
 import RegisterPet from "./pages/homePage/CadastroPet";
 import RegisteredPet from "./pages/homePage/registeredPet";
 import SchedulePet from "./pages/homePage/schedulePet";
+import { DetailsDog } from './pages/detailsDog';
 
 const AppRoutes: React.FC = () => {
     return (
@@ -19,6 +20,7 @@ const AppRoutes: React.FC = () => {
                 <Route path="cadastro-pet" element={<MainContent><RegisterPet /></MainContent>} />
                 <Route path="registro-pet" element={<MainContent><RegisteredPet /></MainContent>} />
                 <Route path="agenda-pet" element={<MainContent><SchedulePet /></MainContent>} />
+                <Route path="detailsDog/:id" element={<MainContent><DetailsDog /></MainContent>} />
             </Route>
         </Routes>
     );

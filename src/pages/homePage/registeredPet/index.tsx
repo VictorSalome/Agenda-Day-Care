@@ -11,12 +11,14 @@ import {
 } from "@mui/material";
 
 import { IoMdInformationCircleOutline } from "react-icons/io";
+import { useNavigate } from "react-router-dom";
 
 const RegisteredPetPage: React.FC = () => {
   const { data, error, isLoading } = useGetDogs();
   const [page, setPage] = useState(1); // Estado para controlar a página atual
   const [searchTerm, setSearchTerm] = useState(""); // Estado para armazenar o termo de busca
   const dogsPerPage = 8; // Número de itens por página
+  const navigate = useNavigate();
   console.log("data", data);
   const { dogs } = data || {};
 
@@ -91,10 +93,7 @@ const RegisteredPetPage: React.FC = () => {
             >
               <IconButton
                 sx={{ position: "absolute", top: 10, right: 10, color: "#000" }}
-                onClick={() => {
-                  // Replace with actual navigation to pet detail page
-                  window.location.href = `/pets/${dog._id}`;
-                }}
+                onClick={() => navigate(`/detailsDog/${dog._id}`)}
               >
                 <IoMdInformationCircleOutline />
               </IconButton>
@@ -119,7 +118,7 @@ const RegisteredPetPage: React.FC = () => {
         ))}
       </Grid>
       {/* Controles de páginação */}
-      <Box mt={4} display="flex" justifyContent="center">
+      <Box mt={10} display="flex" justifyContent="center">
         <Pagination
           count={Math.ceil((filteredDogs?.length || 0) / dogsPerPage)} // Calcula o número total de páginas
           page={page}
