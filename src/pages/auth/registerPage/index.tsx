@@ -1,29 +1,15 @@
 import React, { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-import axios from "axios";  // Importando o axios
+
 import dogRegister from "../../../assets/dogRegister.png";
+import type { IFormInput } from "./types";
+import { schemaRegister } from "./schemaRegister";
+import useAuth from "../../../hooks/serviceAuth";
+import { yupResolver } from "@hookform/resolvers/yup";
 
-interface IFormInput {
-  name: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
-}
 
-const schema = yup.object().shape({
-  name: yup.string().required("Nome completo é obrigatório"),
-  email: yup.string().email("E-mail inválido").required("E-mail é obrigatório"),
-  password: yup
-    .string()
-    .min(6, "A senha deve ter pelo menos 6 caracteres")
-    .required("Senha é obrigatória"),
-  confirmPassword: yup
-    .string()
-    .oneOf([yup.ref("password")], "As senhas devem corresponder")
-    .required("Confirmação de senha é obrigatória"),
-});
+
+
 
 const Register = () => {
   const {
@@ -31,19 +17,26 @@ const Register = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<IFormInput>({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(schemaRegister),
   });
+  const { postRegister } = useAuth();
 
   const [showPasswords, setShowPasswords] = useState(false);
 
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
     try {
-      const response = await axios.post('http://localhost:8000/auth/register', data);
-      console.log(response.data);
-      // Faça algo com a resposta, como mostrar uma mensagem de sucesso
+      const response = await postRegister(data);
+      console.log(response);
+
+      if (response) {
+        alert("Cadastro realizado com sucesso!");
+      } else {
+        alert("Erro ao cadastrar. Verifique os dados e tente novamente.");
+      }
+
     } catch (error) {
       console.error(error);
-      // Lide com o erro, como mostrar uma mensagem de erro
+
     }
   };
 
