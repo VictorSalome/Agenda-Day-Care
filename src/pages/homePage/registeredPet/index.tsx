@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useGetDogs } from "../../../hooks/servicesApi/serviceHook";
+import { useGetDogs } from "../../../hooks/serviceHook";
 import {
   Avatar,
   Box,
@@ -19,7 +19,7 @@ const RegisteredPetPage: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState(""); // Estado para armazenar o termo de busca
   const dogsPerPage = 8; // Número de itens por página
   const navigate = useNavigate();
-  console.log("data", data);
+
   const { dogs } = data || {};
 
   if (isLoading) {
