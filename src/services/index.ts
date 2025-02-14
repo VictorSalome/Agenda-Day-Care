@@ -21,4 +21,4 @@
 //   }
 // });
 
-export * from "./HTTPServices";
+export * from "./dogsService";
