@@ -1,6 +1,6 @@
 import "./index.css";
 import { BrowserRouter } from "react-router-dom";
-import AppRoutes from "./routes";
+import AppRoutes from "./routes/routes";
 import { QueryClient, QueryClientProvider } from "react-query";
 
 function App() {
