@@ -1,26 +1,16 @@
 import React, { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
 import dogLogin from "../../../assets/dogLogin.png";
+import type { IFormInput } from "./types";
+import { schemaRegister } from "./schemaValidation";
 
-interface IFormInput {
-  email: string;
-  password: string;
-}
-
-const schema = yup.object().shape({
-  email: yup.string().email("E-mail inválido").required("E-mail é obrigatório"),
-  password: yup.string().required("Senha é obrigatória"),
-});
-
-const Login = () => {
+export const LoginPage = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<IFormInput>({
-    resolver: yupResolver(schema),
+    resolver: schemaRegister
   });
 
   const [showPassword, setShowPassword] = useState(false);
@@ -130,4 +120,3 @@ const Login = () => {
   );
 };
 
-export default Login;
