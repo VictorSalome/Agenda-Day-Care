@@ -15,7 +15,7 @@ const AppRoutes: React.FC = () => {
         <Routes>
             <Route path="auth/register" element={<Register />} />
             <Route path="auth/login" element={<LoginPage />} />
-            <Route path="/" element={<LayoutWithSidebar />}>
+            <Route path="/dashboard" element={<LayoutWithSidebar />}>
                 <Route index element={<MainContent><HomePage /></MainContent>} />
                 <Route path="cadastro-pet" element={<MainContent><RegisterPet /></MainContent>} />
                 <Route path="registro-pet" element={<MainContent><RegisteredPet /></MainContent>} />
