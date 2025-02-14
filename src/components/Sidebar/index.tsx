@@ -12,16 +12,16 @@ const Sidebar: React.FC<SidebarProps> = ({ children }) => {
   const [selectedMenu, setSelectedMenu] = useState<string>("Home");
 
   const Menus: Menu[] = [
-    { title: "Home", icon: <GiDogHouse />, link: "/" },
-    { title: "Cadastrar cachorro", icon: <IoMdPaw />, link: "/cadastro-pet" },
-    { title: "Cachorros cadastrados", icon: <FaDog />, link: "/registro-pet" },
+    { title: "Home", icon: <GiDogHouse />, link: "/dashboard" },
+    { title: "Cadastrar cachorro", icon: <IoMdPaw />, link: "/dashboard/cadastro-pet" },
+    { title: "Cachorros cadastrados", icon: <FaDog />, link: "/dashboard/registro-pet" },
     {
       title: "Agenda pet",
       icon: <GrSchedule />,
       gap: true,
-      link: "/agenda-pet",
+      link: "/dashboard/agenda-pet",
     },
-    { title: "Search", icon: <FaMagnifyingGlass />, link: "/pesquisa" },
+    { title: "Search", icon: <FaMagnifyingGlass />, link: "/dashboard/pesquisa" },
   ];
 
   const handleMenuClick = (title: string) => {
@@ -31,28 +31,24 @@ const Sidebar: React.FC<SidebarProps> = ({ children }) => {
   return (
     <div className="flex">
       <div
-        className={` ${
-          open ? "w-72" : "w-20 "
-        } bg-transparent h-screen p-5 pt-8 relative duration-300`}
+        className={` ${open ? "w-72" : "w-20 "
+          } bg-transparent h-screen p-5 pt-8 relative duration-300`}
       >
         <IoIosArrowBack
-          className={`absolute cursor-pointer -right-0 top-9 w-4 border-gray-800 border-2 rounded-full ${
-            !open && "rotate-180"
-          }`}
+          className={`absolute cursor-pointer -right-0 top-9 w-4 border-gray-800 border-2 rounded-full ${!open && "rotate-180"
+            }`}
           onClick={() => setOpen(!open)}
         />
         <div className="flex gap-x-4 items-center">
           <img
             src="./src/assets/logo.png"
-            className={` w-10 h-10 cursor-pointer duration-500 ${
-              open && "rotate-[360deg] "
-            }`}
+            className={` w-10 h-10 cursor-pointer duration-500 ${open && "rotate-[360deg] "
+              }`}
             alt="Logo"
           />
           <h1
-            className={`text- origin-left font-medium text-xl duration-200 ${
-              !open && "scale-0"
-            }`}
+            className={`text- origin-left font-medium text-xl duration-200 ${!open && "scale-0"
+              }`}
           >
             Painel Pet
           </h1>
@@ -62,9 +58,8 @@ const Sidebar: React.FC<SidebarProps> = ({ children }) => {
             {Menus.map((menu, index) => (
               <li
                 key={index}
-                className={`flex  rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-500 text-sm items-center gap-x-4 ${
-                  menu.gap ? "mt-9" : "mt-2"
-                } ${selectedMenu === menu.title && "bg-gray-900"}`}
+                className={`flex  rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-500 text-sm items-center gap-x-4 ${menu.gap ? "mt-9" : "mt-2"
+                  } ${selectedMenu === menu.title && "bg-gray-900"}`}
                 onClick={() => handleMenuClick(menu.title)}
               >
                 <Link
