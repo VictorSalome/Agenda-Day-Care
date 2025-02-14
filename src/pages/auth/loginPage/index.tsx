@@ -3,45 +3,68 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import dogLogin from "../../../assets/dogLogin.png";
 import type { IFormInput } from "./types";
 import { schemaRegister } from "./schemaValidation";
+import useAuth from "../../../hooks/auth/authHook";
+import { toast } from "react-toastify";
+import axios from "axios";
 
 export const LoginPage = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<IFormInput>({
     resolver: schemaRegister
   });
 
+  const { postLogin } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
-  const [loginError, setLoginError] = useState("");
+
+
+  const messageToastLogin = {
+    success: "Usuário logado com sucesso!",
+    warning: "verifique se o email e senha estão corretos.",
+    error: "Verifique se o usuário está cadastrado.",
+
+  };
 
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
     try {
-      const response = await fetch("http://localhost:8000/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+      console.log("Enviando requisição...");
+      const response = await postLogin(data);
+      console.log("Resposta recebida:", response);
 
-      const result = await response.json();
-
-      if (!response.ok) {
-        setLoginError(result.msg || "Erro ao realizar login");
+      if (response.status === 200) {
+        reset();
+        localStorage.setItem("token", response.data.token);
+        localStorage.setItem("user", JSON.stringify(response.data.user));
+        toast.success(messageToastLogin.success);
         return;
       }
 
-      // Sucesso: Armazene o token JWT
-      console.log("Login bem-sucedido", result);
-      localStorage.setItem("token", result.token);
-      // Redirecione o usuário ou atualize o estado de autenticação conforme necessário
+      if (response.status === 404) {
+        console.log("Erro 404 - Usuário não encontrado");
+        toast.error(messageToastLogin.error);
+        return;
+      }
     } catch (error) {
-      console.error("Erro:", error);
-      setLoginError("Erro no servidor, tente novamente mais tarde");
+      console.log("Erro na requisição:", error);
+
+      if (axios.isAxiosError(error)) {
+        console.log("Código de status:", error.response?.status);
+
+        if (error.response?.status === 422) {
+          toast.error(messageToastLogin.warning);
+        } else {
+          console.error("Erro inesperado:", error);
+        }
+      } else {
+        console.error("Erro desconhecido:", error);
+      }
     }
   };
+
+
 
   const backgroundStyle: React.CSSProperties = {
     position: "relative",
@@ -107,7 +130,6 @@ export const LoginPage = () => {
               </label>
             </div>
           </div>
-          {loginError && <p className="text-red-500 text-sm">{loginError}</p>}
           <button
             type="submit"
             className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600"
@@ -119,4 +141,5 @@ export const LoginPage = () => {
     </div>
   );
 };
+
 
