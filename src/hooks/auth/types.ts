@@ -4,3 +4,8 @@ export interface IRegisterProps {
   password: string;
   confirmPassword: string;
 }
+
+export interface ILoginProps {
+  email: string;
+  password: string;
+}
