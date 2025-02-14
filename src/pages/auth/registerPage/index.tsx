@@ -3,7 +3,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import dogRegister from "../../../assets/dogRegister.png";
 import type { IFormInput } from "./types";
 import { schemaRegister } from "./schemaRegister";
-import useAuth from "../../../hooks/authHook/serviceAuth";
+import useAuth from "../../../hooks/auth/serviceAuth";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 const Register = () => {
