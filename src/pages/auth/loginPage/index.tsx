@@ -6,6 +6,7 @@ import { schemaRegister } from "./schemaValidation";
 import useAuth from "../../../hooks/auth/authHook";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export const LoginPage = () => {
   const {
@@ -16,6 +17,8 @@ export const LoginPage = () => {
   } = useForm<IFormInput>({
     resolver: schemaRegister
   });
+
+  const navigate = useNavigate();
 
   const { postLogin } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
@@ -39,6 +42,7 @@ export const LoginPage = () => {
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("user", JSON.stringify(response.data.user));
         toast.success(messageToastLogin.success);
+        navigate("/dashboard");
         return;
       }
 
