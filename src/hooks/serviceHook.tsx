@@ -1,5 +1,6 @@
 import { useQuery } from "react-query";
-import { HTTPService } from "../services";
+import { dogApi } from "../services";
+
 
 export interface IApiDogs {
   dogs: Dog[];
@@ -30,7 +31,7 @@ export const useGetDogs = () => {
   const { data, error, isLoading } = useQuery({
     queryKey: ["dogs"],
     queryFn: () => {
-      const response = HTTPService.get<IApiDogs>(
+      const response = dogApi.get<IApiDogs>(
         "http://localhost:8000/register/dogs"
       ).then((res) => res.data);
       return response;
