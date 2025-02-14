@@ -3,23 +3,50 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import dogRegister from "../../../assets/dogRegister.png";
 import type { IFormInput } from "./types";
 import { schemaRegister } from "./schemaRegister";
-import useAuth from "../../../hooks/auth/serviceAuth";
+import useAuth from "../../../hooks/auth/authHook";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Register = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<IFormInput>({
     resolver: yupResolver(schemaRegister),
   });
-  const { postRegister } = useAuth();
 
+  const { postRegister } = useAuth();
+  const navigate = useNavigate();
   const [showPasswords, setShowPasswords] = useState(false);
 
+  const messagesToasts = {
+    success: "Usuário cadastrado com sucesso!",
+    error: "Erro ao cadastrar usuário.",
+    registeredUser: "Usuário já cadastrado.",
+  };
+
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
-    await postRegister(data);
+    try {
+      const response = await postRegister(data);
+
+      if (response.status === 201) {
+        toast.success(messagesToasts.success);
+        reset();
+        navigate("/auth/login");
+      } else {
+        toast.error(messagesToasts.error);
+      }
+
+      if (response.status === 409) {
+        toast.warning(messagesToasts.registeredUser);
+      }
+
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const backgroundStyle: React.CSSProperties = {
