@@ -8,7 +8,7 @@ import HomePage from "../pages/homePage";
 import RegisterPet from "../pages/homePage/CadastroPet";
 import RegisteredPet from "../pages/homePage/registeredPet";
 import SchedulePet from "../pages/homePage/schedulePet";
-import { DetailsDog } from '../pages/detailsDog';
+import { DetailsDog } from '../pages/dashboard/detailsDog';
 import PrivateRoute from './privateRoutes';
 
 const AppRoutes: React.FC = () => {

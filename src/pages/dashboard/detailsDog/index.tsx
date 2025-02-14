@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { useGetDogs } from "../../hooks/serviceHook";
+import { useGetDogs } from "../../../hooks/serviceHook";
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
