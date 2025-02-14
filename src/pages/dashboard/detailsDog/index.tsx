@@ -1,11 +1,12 @@
 import { useParams } from "react-router-dom";
-import { useGetDogs } from "../../../hooks/serviceHook";
+
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Paper from '@mui/material/Paper';
+import { useGetDogs } from "@/hooks/serviceHook";
 
 export const DetailsDog = () => {
   const { id } = useParams<{ id: string }>();

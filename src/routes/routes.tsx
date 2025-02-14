@@ -1,21 +1,23 @@
 import React from 'react';
 import { Route, Routes, Outlet } from "react-router-dom";
 import Sidebar from '../components/Sidebar';
-import MainContent from '../pages/homePage/mainContent';
 import { LoginPage } from '../pages/auth/loginPage';
 import Register from '../pages/auth/registerPage';
-import HomePage from "../pages/homePage";
-import RegisterPet from "../pages/homePage/CadastroPet";
-import RegisteredPet from "../pages/homePage/registeredPet";
-import SchedulePet from "../pages/homePage/schedulePet";
-import { DetailsDog } from '../pages/dashboard/detailsDog';
+import HomePage from "../pages/dashboard";
+import RegisterPet from "../pages/dashboard/CadastroPet";
+import RegisteredPet from "../pages/dashboard/registeredPet";
+import SchedulePet from "../pages/dashboard/schedulePet";
 import PrivateRoute from './privateRoutes';
+import MainContent from '@/pages/dashboard/mainContent';
+import { DetailsDog } from '@/pages/dashboard/detailsDog';
+import FileManager from '@/pages/dashboard/tes';
 
 const AppRoutes: React.FC = () => {
     return (
         <Routes>
             <Route path="auth/register" element={<Register />} />
             <Route path="auth/login" element={<LoginPage />} />
+            <Route path="teste" element={<FileManager />} />
 
 
             <Route path="/dashboard" element={<PrivateRoute />}>
