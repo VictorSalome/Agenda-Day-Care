@@ -17,7 +17,7 @@ const AppRoutes: React.FC = () => {
             <Route path="auth/register" element={<Register />} />
             <Route path="auth/login" element={<LoginPage />} />
 
-           
+
             <Route path="/dashboard" element={<PrivateRoute />}>
                 <Route element={<LayoutWithSidebar />}>
                     <Route index element={<MainContent><HomePage /></MainContent>} />
