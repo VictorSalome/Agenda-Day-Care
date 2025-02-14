@@ -1,15 +1,10 @@
 import React, { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-
 import dogRegister from "../../../assets/dogRegister.png";
 import type { IFormInput } from "./types";
 import { schemaRegister } from "./schemaRegister";
-import useAuth from "../../../hooks/serviceAuth";
+import useAuth from "../../../hooks/authHook/serviceAuth";
 import { yupResolver } from "@hookform/resolvers/yup";
-
-
-
-
 
 const Register = () => {
   const {
@@ -24,20 +19,7 @@ const Register = () => {
   const [showPasswords, setShowPasswords] = useState(false);
 
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
-    try {
-      const response = await postRegister(data);
-      console.log(response);
-
-      if (response) {
-        alert("Cadastro realizado com sucesso!");
-      } else {
-        alert("Erro ao cadastrar. Verifique os dados e tente novamente.");
-      }
-
-    } catch (error) {
-      console.error(error);
-
-    }
+    await postRegister(data);
   };
 
   const backgroundStyle: React.CSSProperties = {
